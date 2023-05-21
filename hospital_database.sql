@@ -18,9 +18,9 @@ create table patient(
 );
 
 ### This index will speed up the search for patients by name if there is a large number data in the table
-### This might be useful for an employee at the hospital to quickly retrieve a patients information
+### This might be useful for an employee at the hospital to quickly retrieve information on a patient
 
-create index index_patient_name ON patient (name);
+create index index_patient_name on patient (name);
 
 ### Create table to hold doctor information
 create table doctor(
@@ -284,11 +284,11 @@ This is an example of a function that takes in a blood type and finds people wit
 the same blood type. This could be used to find people with compatible blood types
 if someone is in need of a blood transfusion. For example someone with B- blood
 can only accept B- and O- blood, so running the function with parameters such as these
-could help find people who could donate blood with there contact information
+could help find people who could donate blood with their contact information
 */
 
 /*
-create or replace function find_blood_type(input_blood_type VARCHAR)
+create or replace function find_blood_type(blood_type_query VARCHAR)
 returns table (
     id int,
     name varchar,
@@ -305,7 +305,7 @@ begin
     return query
     select *
     from patient
-    where patient.blood_type = input_blood_type;
+    where patient.blood_type = blood_type_query;
 end;
 ' language plpgsql;
 
@@ -321,13 +321,13 @@ as metabolic processes or donating blood
 
 /*
 create or replace procedure update_patient_weight(patient_id int, input_weight decimal)
-language plpgsql as '
+as '
 begin
     update patient
     set weight = input_weight
     where id = patient_id;
 end;
-';
+' language plpgsql;
 
 call update_patient_weight(1, 160);
 */
